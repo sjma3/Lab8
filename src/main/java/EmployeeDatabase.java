@@ -53,9 +53,18 @@ public class EmployeeDatabase {
      * @return int
      */
     public int countManagersAbove(final Employee employee) {
-        /*
-         * Implement this function
-         */
+        int count = 0;
+        if (employee.getManager().equals("")) {
+            return count;
+        } else {
+            count++;
+            for (int i = 0; i < employees.size(); i++) {
+                if (employee.getManager().equals(employees.get(i))) {
+                    countManagersAbove(employees.get(i));
+                }
+            }
+        }
+        return count;
     }
 
     /**
@@ -67,9 +76,19 @@ public class EmployeeDatabase {
      * @return int
      */
     public int countEmployeesUnder(final Employee employee) {
-        /*
-         * Implement this function
-         */
+        int count = 0;
+        boolean noEmployees = true;
+        for (int i = 0; i < employees.size(); i++) {
+            if (employees.get(i).getManager().equals(employee.getName())) {
+                noEmployees = false;
+                count++;
+                countEmployeesUnder(employees.get(i));
+            }
+        }
+        if (noEmployees) {
+            return count;
+        }
+        return count;
     }
 
     /**
